@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .flex-container {
+    display: flex;
+  }
+  .flex-container:hover > .flex-item {
+    transform: scale(0.9);
+    opacity: 0.5;
+  }
+  .flex-item {
+    /* flex: 1; */
+    transition: transform 0.5s;
+    transition: opacity 0.5s;
+  }
+
+  .flex-container:hover > .flex-item:hover {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
