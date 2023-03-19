@@ -1,10 +1,13 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { FaGithub, FaFacebook, FaLinkedin } from "react-icons/fa";
+import { FaGithub, FaFacebook, FaTwitter, FaGoogle } from "react-icons/fa";
+import { colorThemeAtom } from "../jotai/atoms";
+import { useAtomValue } from "jotai";
 
 const LogComponent = () => {
   const [isLogin, setIsLogin] = useState(false);
   const [wait, setWait] = useState(false);
+  const theme = useAtomValue(colorThemeAtom);
 
   useEffect(() => {
     // ignore the first render
@@ -20,7 +23,13 @@ const LogComponent = () => {
   }, [isLogin]);
 
   return (
-    <div className="relative flex h-screen w-full flex-col bg-[#e63946] lg:flex-row">
+    <div
+      className={`relative flex h-screen w-full flex-col ${
+        theme === "dark"
+          ? "bg-[#150050] lg:flex-row"
+          : "bg-[#e63946] lg:flex-row"
+      }`}
+    >
       <div
         id="left absolute-div"
         className={`absolute z-0 flex h-1/2 w-full flex-col items-center justify-center gap-y-4 bg-white p-2 py-4 text-black lg:h-full lg:w-1/2 ${
@@ -30,34 +39,58 @@ const LogComponent = () => {
         }  transition-transform duration-500 ease-in-out 
         `}
       >
-        <div className="text-center font-mono text-xl font-semibold md:text-[2rem] lg:text-[3rem]">
+        <div
+          className={`text-center font-mono text-xl font-semibold md:text-[2rem] lg:text-[3rem] ${
+            theme === "dark" ? "text-[#150050]" : "text-[#e63946]"
+          }`}
+        >
           {!wait ? "Sign In" : "Create an account"}
         </div>
         {/* logo container */}
-        <div className="flex-container space-x-4">
+        <div
+          className={`flex-container space-x-4 ${
+            theme === "dark" ? "text-[#150050]" : "text-[#e63946]"
+          }`}
+        >
           <Link
-            className="flex-item"
+            className={`flex-item rounded-full border p-2 ${
+              theme === "dark" ? "border-[#150050]" : "border-[#e63946]"
+            }`}
             href="https://github.com/KhalilSelyan"
             target="_blank"
             rel="noreferrer"
           >
-            <FaGithub className="text-2xl" />
+            <FaGoogle className="text-2xl" />
           </Link>
           <Link
-            className="flex-item"
+            className={`flex-item rounded-full border p-2 ${
+              theme === "dark" ? "border-[#150050]" : "border-[#e63946]"
+            }`}
             href="https://www.linkedin.com/in/khalilselyan/"
             target="_blank"
             rel="noreferrer"
           >
-            <FaLinkedin className="text-2xl" />
+            <FaFacebook className="text-2xl" />
           </Link>
           <Link
-            className="flex-item"
+            className={`flex-item rounded-full border p-2 ${
+              theme === "dark" ? "border-[#150050]" : "border-[#e63946]"
+            }`}
             href="https://www.instagram.com/khalilselyan/"
             target="_blank"
             rel="noreferrer"
           >
-            <FaFacebook className="text-2xl" />
+            <FaTwitter className="text-2xl" />
+          </Link>
+          <Link
+            className={`flex-item rounded-full border p-2 ${
+              theme === "dark" ? "border-[#150050]" : "border-[#e63946]"
+            }`}
+            href="https://www.instagram.com/khalilselyan/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <FaGithub className="text-2xl" />
           </Link>
         </div>
         {/* logo container end */}
@@ -84,7 +117,13 @@ const LogComponent = () => {
             placeholder="Password"
           />
           <button
-            className="rounded-md border border-[#e63946] bg-[#e63946] p-2 text-white transition-all duration-300 hover:bg-white hover:text-[#e63946]"
+            className={`rounded-md border
+            ${
+              theme === "dark"
+                ? "border-[#150050] bg-[#150050] hover:bg-white hover:text-[#150050]"
+                : "border-[#e63946] bg-[#e63946] hover:bg-white hover:text-[#e63946]"
+            }
+             p-2 text-white transition-all duration-300`}
             type="submit"
             onClick={(e) => {
               e.preventDefault();
@@ -100,7 +139,9 @@ const LogComponent = () => {
             Already have an account?{" "}
             <span
               onClick={() => setIsLogin(!isLogin)}
-              className="cursor-pointer text-[#e63946]"
+              className={`cursor-pointer ${
+                theme === "dark" ? "text-[#150050]" : "text-[#e63946]"
+              }`}
             >
               Log in
             </span>
@@ -110,14 +151,17 @@ const LogComponent = () => {
       {/* Right Side */}
       <div
         id="right"
-        className={`absolute z-10 flex h-1/2 w-full flex-col items-center justify-center gap-y-8 bg-[#e63946] p-2 py-4 text-white lg:h-full lg:w-1/2 lg:gap-y-12 ${
+        className={`${
+          theme === "dark" ? "bg-[#150050]" : "bg-[#e63946]"
+        } absolute
+          z-10 flex h-1/2 w-full flex-col items-center justify-center
+        gap-y-8 p-2 py-4 text-white lg:h-full lg:w-1/2 lg:gap-y-12 ${
           isLogin
             ? "translate-y-0 transition-all duration-500 ease-in-out lg:translate-x-full lg:translate-y-0"
             : "translate-y-full transition-all duration-500 ease-in-out lg:translate-x-0 lg:translate-y-0"
         }
         animation transition-transform duration-500 ease-in-out
         `}
-        // write the animation here
       >
         {/* welcome back text */}
         <div className="font-mono text-2xl font-semibold md:text-[2rem] lg:text-[3rem]">
@@ -133,7 +177,9 @@ const LogComponent = () => {
         {/* Login switch button */}
         <button
           onClick={() => setIsLogin(!isLogin)}
-          className="w-40 cursor-pointer rounded-full border border-white bg-transparent p-2 text-white transition-all duration-300 hover:bg-white hover:text-[#e63946]"
+          className={`w-40 cursor-pointer rounded-full border border-white bg-transparent p-2 text-white transition-all duration-300 hover:bg-white ${
+            theme === "dark" ? "hover:text-[#150050]" : "hover:text-[#e63946]"
+          } `}
         >
           {!wait ? "Sign Up" : "Sign In"}
         </button>
